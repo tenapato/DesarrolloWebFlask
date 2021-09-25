@@ -14,10 +14,21 @@ def index():
     
     for doc in cursor:
         user.append(doc)
-        
+
     return render_template('/users.html', data=user)
     #return redirect(url_for('test', data="Pato"))
     #return render_template('/login.html', data="Pato")
+
+
+@app.route('/insert')
+def insert():
+    user = {"id": "34", "nombre":"julion", "correo":"juliotec@tec.mx", "contrasena":"1234"} 
+    try:
+        cuentas.insert_one(user)
+        return redirect(url_for('index'))
+    except Exception as e:
+        return "%s" %e
+
 
 @app.route('/login', methods=["POST"])
 def login():
